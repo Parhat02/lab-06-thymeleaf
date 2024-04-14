@@ -1,6 +1,8 @@
 package com.cydeo.controller;
 
+import com.cydeo.model.CartItem;
 import com.cydeo.service.CartService;
+import com.cydeo.service.ProductService;
 import com.cydeo.service.impl.CartServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,8 +16,11 @@ public class CartController {
 
     private final CartService cartService;
 
-    public CartController(CartService cartService) {
+    private final ProductService productService;
+
+    public CartController(CartService cartService, ProductService productService) {
         this.cartService = cartService;
+        this.productService = productService;
     }
 
     @GetMapping("/cart")
@@ -29,8 +34,13 @@ public class CartController {
     @GetMapping("/addToCart/{productId}/{quantity}")
     public String addToCart(@PathVariable UUID productId, @PathVariable Integer quantity, Model model){
 
-        cartService.addToCart(productId, quantity);
+//        for (CartItem cartItem : CartServiceImpl.CART.getCartItemList()) {
+//            if (!cartItem.getProduct().equals(productService.findProductById(productId))){
+//                cartService.addToCart(productId, quantity);
+//            }
+//        }
 
+        cartService.addToCart(productId, quantity);
         model.addAttribute("cartList", CartServiceImpl.CART.getCartItemList());
         model.addAttribute("cartTotalAmount", CartServiceImpl.CART.getCartTotalAmount());
 
