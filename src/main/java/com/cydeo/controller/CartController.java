@@ -1,6 +1,5 @@
 package com.cydeo.controller;
 
-import com.cydeo.model.CartItem;
 import com.cydeo.service.CartService;
 import com.cydeo.service.impl.CartServiceImpl;
 import org.springframework.stereotype.Controller;
