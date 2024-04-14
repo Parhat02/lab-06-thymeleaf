@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -32,10 +33,14 @@ public class CartServiceImpl implements CartService {
         cartItem.setProduct(product);
         cartItem.setQuantity(quantity);
         cartItem.setTotalAmount(product.getPrice().multiply(BigDecimal.valueOf(quantity)));
-        //todo calculate cart total amount
-        CART.setCartTotalAmount(CART.getCartTotalAmount().add(product.getPrice().multiply(BigDecimal.valueOf(quantity))));
         //todo add to cart
-        CART.getCartItemList().add(cartItem);
+        List<Product> products = CART.getCartItemList().stream().map(CartItem::getProduct).toList();
+        if (!products.contains(product)){
+            //todo calculate cart total amount
+            CART.setCartTotalAmount(CART.getCartTotalAmount().add(product.getPrice().multiply(BigDecimal.valueOf(quantity))));
+            CART.getCartItemList().add(cartItem);
+        }
+
         return CART;
     }
 

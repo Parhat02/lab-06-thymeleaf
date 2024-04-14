@@ -1,8 +1,6 @@
 package com.cydeo.controller;
 
-import com.cydeo.model.CartItem;
 import com.cydeo.service.CartService;
-import com.cydeo.service.ProductService;
 import com.cydeo.service.impl.CartServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,11 +14,8 @@ public class CartController {
 
     private final CartService cartService;
 
-    private final ProductService productService;
-
-    public CartController(CartService cartService, ProductService productService) {
+    public CartController(CartService cartService) {
         this.cartService = cartService;
-        this.productService = productService;
     }
 
     @GetMapping("/cart")
